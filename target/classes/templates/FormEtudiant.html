@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+	<title>Saisie des Etudiants</title>
+	
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" href="/css/myStyle.css" th:href="@{/css/myStyle.css}"/>
+</head>	
+<body>
+	<div class="col-md-6 col-xs-12 spacerr col-md-offset-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">Saisie d'un etudiant</div>
+			<div class="panel-body">
+				<form th:action="@{saveEtudiant}" method="post" th:objects="${etudiant}" enctype="multipart/form-data">
+														<!-- 	Ne pas oublier l'etoile -->
+					<div class="form-group">
+						<label class="control-label">NOM:</label>
+						<input type="text" th:field="${etudiant.nom}" class="form-control"/>
+						<span th:errors="${etudiant.nom}"></span>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label">Date Naissance:</label>
+						<input type="Date" th:field="${etudiant.dateNaissance}" class="form-control"/>
+						<span th:errors="${etudiant.dateNaissance}"></span>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label">Email:</label>
+						<input type="text" th:field="${etudiant.email}" class="form-control"/>
+									<!-- data binding -->
+						<span th:errors="${etudiant.email}"></span>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label">Photo:</label>
+						<input type="file" th:name="pict" class="form-control" accept="*" enctype="multipart/form-data"/>
+						<span th:errors="${etudiant.photo}"></span>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary" >Save	</button>
+					</div>
+								
+				</form>
+			</div>
+		</div>
+	</div>	
+</body>
+</html>

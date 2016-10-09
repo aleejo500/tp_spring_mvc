@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeLeaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Liste des Etudiants</title>
+
+<!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/> OK-->
+<!-- <link rel="stylesheet" type="text/css" href="/css/myStyle.css"/> 0K-->
+<!-- th:href="@{/css/bootstrap.min.css} -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/myStyle.css}"/>
+
+</head>	
+<body>
+
+<div class="container spacerr">
+	<a th:href="@{form}">Nouveau étudiant</a>
+
+</div>
+
+	<div class="container spacerr">
+				<form th:action="@{Index}" methode="get">
+					<div class="form-group">
+						<label>Mot Clé</label>
+						<input type="text" name="motCle" th:value="${motCle}"/>
+						<button type="submit">Search</button>
+					 </div>
+				</form>
+			</div>
+	<div class="container spacerr">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th><th>Nom</th><th>Date</th><th>email</th><th>photo</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				<!-- <tr th:each="e:${etudiants}"> -->
+
+				<tr th:each="e:${PgEtudiants.content}">
+					<td th:text="${e.id}"></td>
+					<td th:text="${e.nom}"></td>
+					<td th:text="${e.dateNaissance}"></td>
+					<td th:text="${e.email}"></td>
+<!-- 					<td th:text="${e.photo}"></td> -->
+					<td>
+					<img class="img-circle" th:src="@{getPhoto(id=${e.id})}" width="100" height="100" />
+					</td>
+					<td><a onclick="return confirm('Sûr poulet?')" th:href="@{supprimer(id=${e.id})}">Suprimer</a></td>
+					<td><a  th:href="@{edit(id=${e.id})}">Editer</a></td>
+			</tr>
+		</tbody>
+	 </table>
+	</div>
+	<div class="container">
+		<ul class="nav nav-pills">
+			<li th:each="pg:${pages}" th:class="${pg==pageCourante}?active:''">
+					<a th:text="${pg}" th:href="@{Index(page=${pg}, motCle=${motCle})}"></a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
